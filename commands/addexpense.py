@@ -5,7 +5,7 @@ from utils import load_data, save_data
 async def add_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if len(args) < 3:
-        await update.message.reply_text("Usage: /add_expense <group_name> <amount> <description>")
+        await update.message.reply_text("Usage: /addexpense <group_name> <amount> <description>")
         return
 
     group_name, amount, *description = args

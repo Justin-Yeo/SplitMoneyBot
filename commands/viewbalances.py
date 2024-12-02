@@ -5,7 +5,7 @@ from utils import load_data
 async def view_balances(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if not args:
-        await update.message.reply_text("Usage: /view_balances <group_name>")
+        await update.message.reply_text("Usage: /viewbalances <group_name>")
         return
 
     group_name = " ".join(args)
