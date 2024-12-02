@@ -4,7 +4,7 @@ from commands.register import register
 from commands.creategroup import create_group
 from commands.addexpense import add_expense
 from commands.viewbalances import view_balances
-from command.joingroup import join_group
+from commands.joingroup import join_group
 
 
 import os
