@@ -2,6 +2,8 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from utils import load_data, save_data
 
+create_group_command = "creategroup"
+
 async def create_group(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         args = context.args
