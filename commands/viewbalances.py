@@ -2,6 +2,8 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from utils import load_data
 
+view_balances_command = "viewbalances"
+
 async def view_balances(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if not args:

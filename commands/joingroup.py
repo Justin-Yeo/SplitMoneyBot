@@ -2,6 +2,8 @@ from telegram import Update
 from telegram.ext import ContextTypes
 from utils import load_data, save_data
 
+join_group_command = "joingroup"
+
 async def join_group(update: Update, context: ContextTypes.DEFAULT_TYPE):
     args = context.args
     if len(args) < 2:
