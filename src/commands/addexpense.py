@@ -1,5 +1,5 @@
 from telegram import Update, InlineKeyboardMarkup, InlineKeyboardButton
-from telegram.ext import ContextTypes, ConversationHandler, CallbackQueryHandler, MessageHandler, filters
+from telegram.ext import ContextTypes, ConversationHandler
 from utils import load_data, save_data
 from constants import ConvState  
 
@@ -147,6 +147,4 @@ async def enter_reason(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # End the conversation
     return ConversationHandler.END
 
-async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Expense addition cancelled.")
-    return ConversationHandler.END
+
