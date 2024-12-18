@@ -43,9 +43,9 @@ def main():
     states={
         ConvState.SELECT_EXPENSE: [CallbackQueryHandler(select_expense)],
         ConvState.EDIT_OPTION: [CallbackQueryHandler(handle_edit_option)],
-        ConvState.SELECT_PAYER_NEW: [CallbackQueryHandler(select_new_payer)],  # Handles payer selection
-        ConvState.SELECT_USERS_NEW: [CallbackQueryHandler(select_new_users)],  # Handles user selection
-        ConvState.EDIT_AMOUNT: [CommandHandler('amount', update_expense_amount)],  # Handles text-based edits
+        ConvState.SELECT_PAYER_NEW: [CallbackQueryHandler(select_new_payer)],  
+        ConvState.SELECT_USERS_NEW: [CallbackQueryHandler(select_new_users)], 
+        ConvState.EDIT_AMOUNT: [CommandHandler('amount', update_expense_amount)],  
         ConvState.EDIT_REASON: [CommandHandler('reason', update_expense_reason)],
     },
     fallbacks=[CommandHandler("cancel", cancel)]  # Handles the /cancel command
