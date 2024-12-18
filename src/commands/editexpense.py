@@ -189,7 +189,7 @@ async def select_new_users(update: Update, context: ContextTypes.DEFAULT_TYPE):
         save_data(data)
 
         selected_usernames = [data['users'].get(user_id, 'Unknown User') for user_id in expense['users_involved']]
-        await query.edit_message_text(text=f"Users successfully updated! 🎉 New users: {', '.join(selected_usernames)}")
+        await query.edit_message_text(text=f"People involved successfully updated! 🎉 Involved: {', '.join(selected_usernames)}")
         return ConversationHandler.END
 
     # Initialize the 'selected_users' from the context user_data
