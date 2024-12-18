@@ -150,6 +150,5 @@ async def enter_reason(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return ConversationHandler.END
 
 async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Cancel the conversation."""
     await update.message.reply_text("Expense addition cancelled.")
     return ConversationHandler.END
