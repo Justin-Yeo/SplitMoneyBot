@@ -1,7 +1,7 @@
 from telegram.ext import Application, CommandHandler, ConversationHandler, CallbackQueryHandler, MessageHandler, filters
 from commands.start import start, start_command
 from commands.addexpense import start_add_expense, select_users, select_payer, enter_amount, enter_reason, cancel, add_expense_command
-from commands.viewbalances import view_balances, view_balances_command
+from commands.settle import settle, settle_command
 from commands.syncusers import sync_users, sync_users_command
 from utils import load_data
 from constants import ConvState  # Import the Enum class for conversation states
@@ -20,7 +20,7 @@ def main():
 
     # Register simple command handlers
     application.add_handler(CommandHandler(start_command, start))  
-    application.add_handler(CommandHandler(view_balances_command, view_balances))  
+    application.add_handler(CommandHandler(settle_command, settle))  
     application.add_handler(CommandHandler(sync_users_command, sync_users))
 
     # Register the add_expense conversation handler (for multi-step conversation)

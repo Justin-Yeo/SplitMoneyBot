@@ -3,9 +3,9 @@ from telegram.ext import ContextTypes
 from utils import load_data
 from collections import defaultdict
 
-view_balances_command = "viewbalances"
+settle_command = "settle"
 
-async def view_balances(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def settle(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = load_data()
     expenses = data.get("expenses", [])
     all_users = data.get("users", {})  
