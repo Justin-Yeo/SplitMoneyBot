@@ -19,20 +19,20 @@ def main():
     application = Application.builder().token(TOKEN).build()
 
     # Register simple command handlers
-    application.add_handler(CommandHandler(start_command, start))  # /start command
-    application.add_handler(CommandHandler(view_balances_command, view_balances))  # /viewbalances command
+    application.add_handler(CommandHandler(start_command, start))  
+    application.add_handler(CommandHandler(view_balances_command, view_balances))  
     application.add_handler(CommandHandler(sync_users_command, sync_users))
 
     # Register the add_expense conversation handler (for multi-step conversation)
     application.add_handler(ConversationHandler(
-        entry_points=[CommandHandler(add_expense_command, start_add_expense)],  # User types /addexpense
+        entry_points=[CommandHandler(add_expense_command, start_add_expense)],  
         states={
-            ConvState.SELECT_USERS: [CallbackQueryHandler(select_users)],  # Step 1: Select the users involved
-            ConvState.SELECT_PAYER: [CallbackQueryHandler(select_payer)],  # Step 2: Select the user who paid
+            ConvState.SELECT_USERS: [CallbackQueryHandler(select_users)],  
+            ConvState.SELECT_PAYER: [CallbackQueryHandler(select_payer)],  
             ConvState.ENTER_AMOUNT: [CommandHandler('amount', enter_amount)], 
             ConvState.ENTER_REASON: [CommandHandler('reason', enter_reason)], 
         },
-        fallbacks=[CommandHandler("cancel", cancel)]  # Handles the /cancel command
+        fallbacks=[CommandHandler("cancel", cancel)]  
     ))
 
     # Start the bot (polling for updates)

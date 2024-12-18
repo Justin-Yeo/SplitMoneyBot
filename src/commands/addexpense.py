@@ -8,7 +8,6 @@ add_expense_command = "addexpense"
 async def start_add_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
-    # Get all users in the chat (group members)
     try:
         chat_members = await context.bot.get_chat_administrators(chat_id)
     except Exception as e:
@@ -19,10 +18,10 @@ async def start_add_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
     context.user_data['all_users'] = all_users
 
     keyboard = [[InlineKeyboardButton(username, callback_data=user_id)] for user_id, username in all_users.items()]
-    keyboard.append([InlineKeyboardButton("Done", callback_data="done")])  # Add a "Done" button at the bottom
+    keyboard.append([InlineKeyboardButton("Done", callback_data="done")]) 
     reply_markup = InlineKeyboardMarkup(keyboard)
 
-    context.user_data['selected_users'] = set()  # Track selected users
+    context.user_data['selected_users'] = set()  
     await update.message.reply_text("Select the users involved in the expense:", reply_markup=reply_markup)
     return ConvState.SELECT_USERS
 
@@ -92,7 +91,7 @@ async def enter_amount(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return ConvState.ENTER_AMOUNT
 
     try:
-        amount = float(context.args[0])  # Extract the amount from the command arguments
+        amount = float(context.args[0])  
         if amount <= 0:
             await update.message.reply_text("Amount must be a positive number. Please try again.")
             return ConvState.ENTER_AMOUNT
@@ -102,7 +101,6 @@ async def enter_amount(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await update.message.reply_text("Now input the name of this expense. Example: /reason food")
         return ConvState.ENTER_REASON
     except ValueError as e:
-        print(f"Error converting input '{context.args[0]}' to float:", e)  # Debug log
         await update.message.reply_text("Invalid input. Please enter a valid number. Example: /amount 50")
         return ConvState.ENTER_AMOUNT
 

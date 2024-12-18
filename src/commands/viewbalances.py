@@ -6,7 +6,6 @@ from collections import defaultdict
 view_balances_command = "viewbalances"
 
 async def view_balances(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """Command to calculate and display minimum transactions."""
     data = load_data()
     expenses = data.get("expenses", [])
     all_users = data.get("users", {})  
@@ -36,7 +35,6 @@ async def view_balances(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(result_message, parse_mode="Markdown")
     
 def min_cash_flow(transactions, user_map):
-    """Calculate minimum transactions and display usernames instead of user IDs."""
     balance = defaultdict(int)
     for payer, payee, amount in transactions:
         balance[payer] -= amount
