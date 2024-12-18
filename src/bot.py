@@ -1,6 +1,6 @@
 from telegram.ext import Application, CommandHandler, ConversationHandler, CallbackQueryHandler, MessageHandler, filters
 from commands.start import start, start_command
-from commands.addexpense import start_add_expense, select_users, select_payer, enter_amount, enter_reason, cancel, add_expense_command, confirm_selection
+from commands.addexpense import start_add_expense, select_users, select_payer, enter_amount, enter_reason, cancel, add_expense_command
 from commands.viewbalances import view_balances, view_balances_command
 from utils import load_data
 from constants import ConvState  # Import the Enum class for conversation states
@@ -29,7 +29,6 @@ def main():
             ConvState.SELECT_PAYER: [CallbackQueryHandler(select_payer)],  # Step 2: Select the user who paid
             ConvState.ENTER_AMOUNT: [CommandHandler('amount', enter_amount)], 
             ConvState.ENTER_REASON: [CommandHandler('reason', enter_reason)], 
-            ConvState.CONFIRM_SELECTION: [CallbackQueryHandler(confirm_selection)], # Step 4: Enter the reason
         },
         fallbacks=[CommandHandler("cancel", cancel)]  # Handles the /cancel command
     ))
