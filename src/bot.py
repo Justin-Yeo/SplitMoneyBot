@@ -4,6 +4,7 @@ from commands.addexpense import start_add_expense, select_users, select_payer, e
 from commands.settle import settle, settle_command
 from commands.syncusers import sync_users, sync_users_command
 from commands.viewexpenses import view_expenses, view_expenses_command
+from commands.editexpense import start_edit_expense, select_expense, handle_edit_option, select_new_payer, select_new_users, update_expense_amount, update_expense_reason
 from utils import load_data
 from constants import ConvState  # Import the Enum class for conversation states
 
@@ -35,6 +36,19 @@ def main():
             ConvState.ENTER_REASON: [CommandHandler('reason', enter_reason)], 
         },
         fallbacks=[CommandHandler("cancel", cancel)]  
+    ))
+
+    application.add_handler(ConversationHandler(
+    entry_points=[CommandHandler("editexpense", start_edit_expense)],
+    states={
+        ConvState.SELECT_EXPENSE: [CallbackQueryHandler(select_expense)],
+        ConvState.EDIT_OPTION: [CallbackQueryHandler(handle_edit_option)],
+        ConvState.SELECT_PAYER_NEW: [CallbackQueryHandler(select_new_payer)],  # Handles payer selection
+        ConvState.SELECT_USERS_NEW: [CallbackQueryHandler(select_new_users)],  # Handles user selection
+        ConvState.EDIT_AMOUNT: [CommandHandler('amount', update_expense_amount)],  # Handles text-based edits
+        ConvState.EDIT_REASON: [CommandHandler('reason', update_expense_reason)],
+    },
+    fallbacks=[CommandHandler("cancel", cancel)]  # Handles the /cancel command
     ))
 
     # Start the bot (polling for updates)
