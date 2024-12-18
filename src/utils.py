@@ -6,25 +6,29 @@ DATA_FILE = "data.json"
 def load_data():
     # Check if the file exists
     if not os.path.exists(DATA_FILE):
+        print(f"{DATA_FILE} does not exist.")
         # Create a default data structure and save it to a new file
-        default_data = {"users": {}, "groups": {}}
+        default_data = {
+            "users": {}, 
+            "expenses": []
+            }
         save_data(default_data)
         return default_data
-
-    # If the file exists, load and return the data
+    
+    print(f"{DATA_FILE} exists.")
     try:
         with open(DATA_FILE, 'r') as file:
             data = json.load(file)
 
-        # Ensure every group has a 'password' field
-        for group_id, group in data["groups"].items():
-            if "password" not in group:
-                group["password"] = None  # Default value if no password is set
+        if "users" not in data:
+            data["users"] = {}
+        
+        if "expenses" not in data:
+            data["expenses"] = []
 
-        # Save any modifications made to the data
         save_data(data)
         return data
-
+    
     except json.JSONDecodeError:
         # Handle corrupted JSON files gracefully
         print("Error: data.json is corrupted. Reinitializing.")
