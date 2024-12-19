@@ -17,7 +17,6 @@ async def start_edit_expense(update: Update, context: ContextTypes.DEFAULT_TYPE)
         [InlineKeyboardButton(f"Expense {idx+1}: {expense['reason']} (${expense['amount']})", callback_data=str(idx))]
         for idx, expense in enumerate(expenses)
     ]
-    keyboard.append([InlineKeyboardButton("Cancel", callback_data="cancel")])
     reply_markup = InlineKeyboardMarkup(keyboard)
 
     await update.message.reply_text("Select an expense to edit:", reply_markup=reply_markup)
@@ -28,10 +27,6 @@ async def select_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await query.answer()
     data = load_data()
     
-    if query.data == "cancel":
-        await query.edit_message_text(text="Editing process cancelled.")
-        return ConversationHandler.END
-
     selected_expense_index = int(query.data)
     context.user_data['selected_expense_index'] = selected_expense_index
     expense = data['expenses'][selected_expense_index]
@@ -42,7 +37,6 @@ async def select_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Edit Amount", callback_data="edit_amount")],
         [InlineKeyboardButton("Edit Reason", callback_data="edit_reason")],
         [InlineKeyboardButton("Delete Expense", callback_data="delete")],
-        [InlineKeyboardButton("Cancel", callback_data="cancel")]
     ]
     reply_markup = InlineKeyboardMarkup(keyboard)
 
@@ -67,10 +61,6 @@ async def select_expense(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def handle_edit_option(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
-
-    if query.data == "cancel":
-        await query.edit_message_text(text="Editing process cancelled.")
-        return ConversationHandler.END
 
     context.user_data['edit_field'] = query.data
 
